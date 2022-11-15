@@ -1,0 +1,43 @@
+{
+    "probe": "dockerAgent",
+    "check": "CheckImages",
+    "type": "images",
+    "metrics": [
+        {
+            "name": "containers",
+            "dataType": "int"
+        },
+        {
+            "name": "created",
+            "dataType": "int"
+        },
+        {
+            "name": "name",
+            "dataType": "str"
+        },
+        {
+            "name": "parentId",
+            "dataType": "str"
+        },
+        {
+            "name": "repoDigests",
+            "dataType": "str"
+        },
+        {
+            "name": "repoTags",
+            "dataType": "str"
+        },
+        {
+            "name": "sharedSize",
+            "dataType": "int"
+        },
+        {
+            "name": "size",
+            "dataType": "int"
+        },
+        {
+            "name": "virtualSize",
+            "dataType": "int"
+        }
+    ]
+}

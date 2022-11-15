@@ -1,0 +1,51 @@
+{
+    "probe": "docker",
+    "check": "CheckContainers",
+    "type": "containers",
+    "metrics": [
+        {
+            "name": "id",
+            "dataType": "str"
+        },
+        {
+            "name": "name",
+            "dataType": "str"
+        },
+        {
+            "name": "names",
+            "dataType": "str"
+        },
+        {
+            "name": "image",
+            "dataType": "str"
+        },
+        {
+            "name": "imageId",
+            "dataType": "str"
+        },
+        {
+            "name": "command",
+            "dataType": "str"
+        },
+        {
+            "name": "created",
+            "dataType": "int"
+        },
+        {
+            "name": "state",
+            "dataType": "str"
+        },
+        {
+            "name": "status",
+            "dataType": "str"
+        },
+        {
+            "name": "networkMode",
+            "dataType": "str"
+        },
+        {
+            "name": "ports",
+            "dataType": "str"
+        }
+    ]
+}

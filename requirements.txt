@@ -1,0 +1,4 @@
+aiohttp==3.8.1
+colorlog==6.6.0
+setproctitle==1.2.2
+pylibagent==0.1.0

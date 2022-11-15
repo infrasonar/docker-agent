@@ -1,0 +1,15 @@
+{
+    "probe": "dockerAgent",
+    "check": "CheckStats",
+    "type": "cpu",
+    "metrics": [
+        {
+            "name": "name",
+            "dataType": "str"
+        },
+        {
+            "name": "percentUsed",
+            "dataType": "float"
+        }
+    ]
+}
