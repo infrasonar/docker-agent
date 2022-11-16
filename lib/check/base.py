@@ -36,8 +36,8 @@ class Base(CheckBase):
         return state_data
 
     @classmethod
-    async def get_data(cls, query: str):
-        return await cls.docker_api_call(query)
+    def get_data(cls, query: str) -> asyncio.Future:
+        return cls.docker_api_call(query)
 
     @classmethod
     async def docker_api_call(cls, query: str):
