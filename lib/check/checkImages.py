@@ -1,7 +1,6 @@
 import os
 
 from .base import Base
-from .utils import format_list
 
 
 class CheckImages(Base):
@@ -16,8 +15,8 @@ class CheckImages(Base):
             'created': itm['Created'],
             'name': itm['Id'],
             'parentId': itm['ParentId'],
-            'repoDigests': format_list(itm['RepoDigests']),
-            'repoTags': format_list(itm['RepoTags']),
+            'repoDigests': itm['RepoDigests'],
+            'repoTags': itm['RepoTags'],
             'size': itm['Size'],
             'virtualSize': itm['VirtualSize'],
         }
