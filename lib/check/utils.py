@@ -13,14 +13,6 @@ def get_ts_from_time_str(time_str: str):
     return int(datetime.strptime(dstr + tz, '%Y-%m-%dT%H:%M:%S%z').timestamp())
 
 
-def format_list(val):
-    if val is None:
-        return 'None'
-
-    joined = ' ,'.join(map(str, val))
-    return f'[{joined}]'
-
-
 def format_name(names: list):
     return names[0][1:]
 

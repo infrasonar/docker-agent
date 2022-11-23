@@ -56,11 +56,11 @@ class CheckContainers(Base):
                 'ipPrefixLen': v['IPPrefixLen'],
                 'ipv6Gateway': v['IPv6Gateway'],
                 'globalIpv6Address': v['GlobalIPv6Address'],
-                'MacAddress': v['MacAddress'],
-                'driverOpts': v['DriverOpts'],
-                'aliases': v['Aliases'],
-                'links': v['Links'],
-                'ipamConfig': v['IPAMConfig']
+                'macAddress': v['MacAddress'],
+                'driverOpts': v.get('DriverOpts'),
+                'aliases': v.get('Aliases'),
+                'links': v.get('Links'),
+                'ipamConfig': v.get('IPAMConfig'),
             })
         return network_data
 
