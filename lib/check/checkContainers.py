@@ -60,7 +60,6 @@ class CheckContainers(Base):
                 'driverOpts': v.get('DriverOpts'),
                 'aliases': v.get('Aliases'),
                 'links': v.get('Links'),
-                'ipamConfig': v.get('IPAMConfig'),
             })
         return network_data
 
