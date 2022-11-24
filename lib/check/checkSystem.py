@@ -48,7 +48,6 @@ class CheckSystem(Base):
             'indexServerAddress': itm['IndexServerAddress'],
             'nCpu': itm['NCPU'],
             'memTotal': itm['MemTotal'],
-            'genericResources': str(itm['GenericResources']),
             'dockerRootDir': itm['DockerRootDir'],
             'httpProxy': itm['HttpProxy'],
             'httpsProxy': itm['HttpsProxy'],
