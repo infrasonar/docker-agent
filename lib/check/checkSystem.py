@@ -1,7 +1,7 @@
 import os
 
 from .base import Base
-from .utils import get_ts_from_time_str, format_list
+from .utils import get_ts_from_time_str
 
 
 class CheckSystem(Base):
@@ -48,7 +48,6 @@ class CheckSystem(Base):
             'indexServerAddress': itm['IndexServerAddress'],
             'nCpu': itm['NCPU'],
             'memTotal': itm['MemTotal'],
-            'genericResources': str(itm['GenericResources']),
             'dockerRootDir': itm['DockerRootDir'],
             'httpProxy': itm['HttpProxy'],
             'httpsProxy': itm['HttpsProxy'],
@@ -62,7 +61,7 @@ class CheckSystem(Base):
             'liveRestoreEnabled': itm['LiveRestoreEnabled'],
             'isolation': itm['Isolation'],
             'initBinary': itm['InitBinary'],
-            'warnings': format_list(itm['Warnings'])
+            'warnings': itm['Warnings'],
         }
 
     @classmethod

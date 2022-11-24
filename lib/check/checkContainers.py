@@ -1,7 +1,7 @@
 import os
 
 from .base import Base
-from .utils import format_list, format_name
+from .utils import format_name
 
 
 class CheckContainers(Base):
@@ -19,6 +19,8 @@ class CheckContainers(Base):
         return (
             f"{port['IP']}:{port['PrivatePort']}"
             f"->{port['PublicPort']}/{port['Type']}"
+        ) if 'IP' in port else (
+            f"{port['PrivatePort']}/{port['Type']}"
         )
 
     @classmethod
@@ -26,15 +28,14 @@ class CheckContainers(Base):
         resp_data = {
             'id': itm['Id'],
             'name': format_name(itm['Names']),
-            'names': format_list(itm['Names']),
+            'names': itm['Names'],  # list
             'image': itm['Image'],
             'imageId': itm['ImageID'],
             'command': itm['Command'],
             'created': itm['Created'],
             'state': itm['State'],
             'status': itm['Status'],
-            'ports': format_list(
-                [cls.format_port(port) for port in itm['Ports']])
+            'ports': [cls.format_port(port) for port in itm['Ports']]
         }
 
         network_mode = itm.get('HostConfig', {}).get('NetworkMode', None)
@@ -57,11 +58,10 @@ class CheckContainers(Base):
                 'ipPrefixLen': v['IPPrefixLen'],
                 'ipv6Gateway': v['IPv6Gateway'],
                 'globalIpv6Address': v['GlobalIPv6Address'],
-                'MacAddress': v['MacAddress'],
-                'driverOpts': v['DriverOpts'],
-                'aliases': v['Aliases'],
-                'links': v['Links'],
-                'ipamConfig': v['IPAMConfig']
+                'macAddress': v['MacAddress'],
+                'driverOpts': v.get('DriverOpts'),
+                'aliases': v.get('Aliases'),
+                'links': v.get('Links'),
             })
         return network_data
 
