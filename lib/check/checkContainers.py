@@ -19,7 +19,9 @@ class CheckContainers(Base):
         return (
             f"{port['IP']}:{port['PrivatePort']}"
             f"->{port['PublicPort']}/{port['Type']}"
-        )
+        ) if 'IP' in port else (
+            f"{port['PrivatePort']}/{port['Type']}"
+        )       
 
     @classmethod
     def on_item_containers(cls, itm: dict) -> dict:
