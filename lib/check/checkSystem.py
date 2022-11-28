@@ -61,7 +61,7 @@ class CheckSystem(Base):
             'liveRestoreEnabled': itm['LiveRestoreEnabled'],
             'isolation': itm['Isolation'],
             'initBinary': itm['InitBinary'],
-            'warnings': itm['Warnings'],
+            'warnings': itm.get('Warnings'),
         }
 
     @classmethod
