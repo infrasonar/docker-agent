@@ -134,9 +134,7 @@ class CheckContainers(Base):
                 'ipv6Gateway': v['IPv6Gateway'],
                 'globalIpv6Address': v['GlobalIPv6Address'],
                 'macAddress': v['MacAddress'],
-                'driverOpts': v.get('DriverOpts'),
-                'aliases': v.get('Aliases'),
-                'links': v.get('Links'),
+
             })
         return network_data
 

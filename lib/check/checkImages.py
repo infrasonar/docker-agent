@@ -16,8 +16,8 @@ class CheckImages(Base):
             'name': itm['Id'],
             'parentId': itm['ParentId'],
             # https://github.com/moby/moby/issues/29203 repoDigests can be null
-            'repoDigests': itm['RepoDigests'],
-            'repoTags': itm['RepoTags'],
+            'repoDigests': itm.get('RepoDigests') or [],
+            'repoTags': itm.get('RepoTags') or [],
             'size': itm['Size'],
             'virtualSize': itm['VirtualSize'],
         }
