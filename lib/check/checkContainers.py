@@ -20,8 +20,12 @@ class CheckContainers(Base):
 
     @staticmethod
     def calculate_memory_percentage(stats):
-        memory_stats = stats['memory_stats']
-        stats = memory_stats['stats']
+        memory_stats = stats.get('memory_stats')
+        if memory_stats is None:
+            return None
+        stats = memory_stats.get('stats')
+        if stats is None:
+            return None
 
         # On Linux, the Docker CLI reports memory usage by subtracting cache
         # usage from the total memory usage. The API does not perform such a
@@ -42,14 +46,30 @@ class CheckContainers(Base):
 
     @staticmethod
     def calculate_cpu_percentage(stats):
-        cpu_stats = stats['cpu_stats']
-        cpu_usage = cpu_stats['cpu_usage']
-        precpu_stats = stats['precpu_stats']
-        precpu_usage = precpu_stats['cpu_usage']
+        cpu_stats = stats.get('cpu_stats')
+        if cpu_stats is None:
+            return None
+        cpu_usage = cpu_stats.get('cpu_usage')
+        if cpu_usage is None:
+            return None
+        precpu_stats = stats.get('precpu_stats')
+        if precpu_stats is None:
+            return None
+        precpu_usage = precpu_stats.get('cpu_usage')
+        if precpu_usage is None:
+            return None
+        system_cpu_usage = cpu_stats.get('system_cpu_usage')
+        system_precpu_usage = precpu_stats.get('system_cpu_usage')
+        total_usage = cpu_usage.get('total_usage')
+        total_pre_usage = precpu_usage.get('total_usage')
+        if None in (system_cpu_usage,
+                    system_precpu_usage,
+                    total_usage,
+                    total_pre_usage):
+            return None
 
-        cpu_delta = cpu_usage['total_usage'] - precpu_usage['total_usage']
-        system_cpu_delta = cpu_stats['system_cpu_usage'] - \
-            precpu_stats['system_cpu_usage']
+        cpu_delta = total_usage - total_pre_usage
+        system_cpu_delta = system_cpu_usage - system_precpu_usage
 
         # If either precpu_stats.online_cpus or cpu_stats.online_cpus is nil
         # then for compatibility with older daemons the length of the
@@ -140,7 +160,6 @@ class CheckContainers(Base):
                 'ipv6Gateway': v['IPv6Gateway'],
                 'globalIpv6Address': v['GlobalIPv6Address'],
                 'macAddress': v['MacAddress'],
-
             })
         return network_data
 
@@ -158,8 +177,13 @@ class CheckContainers(Base):
             istats = stats.get(container['id'])
             if istats is None:
                 continue
-            container['memory'] = cls.calculate_memory_percentage(istats)
-            container['cpu'] = cls.calculate_cpu_percentage(istats)
+
+            memory = cls.calculate_memory_percentage(istats)
+            if memory is not None:
+                container['memory'] = memory
+            cpu = cls.calculate_cpu_percentage(istats)
+            if cpu is not None:
+                container['cpu'] = cpu
 
     @classmethod
     def iterate_results(cls, state_data: dict):
