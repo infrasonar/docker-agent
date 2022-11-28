@@ -2,7 +2,6 @@ import os
 from pylibagent.agent import Agent
 from lib.check.checkContainers import CheckContainers
 from lib.check.checkImages import CheckImages
-from lib.check.checkStats import CheckStats
 from lib.check.checkSystem import CheckSystem
 from lib.version import __version__ as version
 
@@ -12,5 +11,5 @@ if __name__ == '__main__':
     asset_id_file = os.getenv('ASSET_ID_FILE', '/data/.asset.json')
     os.environ['ASSET_ID_FILE'] = asset_id_file
 
-    checks = [CheckContainers, CheckImages, CheckStats, CheckSystem]
-    Agent('docker', version).start(checks)
+    checks = [CheckContainers, CheckImages, CheckSystem]
+    Agent('docker', version).start(checks, asset_kind='Docker')

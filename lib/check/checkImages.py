@@ -12,7 +12,7 @@ class CheckImages(Base):
     @staticmethod
     def on_item(itm: dict):
         resp_data = {
-            'created': itm['Created'],
+            'created': int(itm['Created']),
             'name': itm['Id'],
             'parentId': itm['ParentId'],
             # https://github.com/moby/moby/issues/29203 repoDigests can be null

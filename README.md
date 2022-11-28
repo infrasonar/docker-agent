@@ -10,7 +10,6 @@ Environment                 | Default                       | Description
 `API_URI`                   | https://api.infrasonar.com    | InfraSonar API.
 `CHECK_CONTAINERS_INTERVAL` | `300`                         | Interval for the docker containers check in seconds.
 `CHECK_IMAGES_INTERVAL`     | `300`                         | Interval for the docker images check in seconds.
-`CHECK_STATS_INTERVAL`      | `300`                         | Interval for the docker stats check in seconds.
 `CHECK_SYSTEM_INTERVAL`     | `300`                         | Interval for the docker system check in seconds.
 `VERIFY_SSL`                | `1`                           | Verify SSL certificate, 0 _(=disabled)_ or 1 _(=enabled)_.
 `LOG_LEVEL`                 | `warning`                     | Log level _(error, warning, info, debug)_.
