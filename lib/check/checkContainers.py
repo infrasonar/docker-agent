@@ -87,8 +87,7 @@ class CheckContainers(Base):
 
         await asyncio.gather(*tasks)
         cls.apply_stats(state_data['containers'], stats)
-
-        return stats
+        return state_data
 
     @staticmethod
     def format_port(port: dict):
