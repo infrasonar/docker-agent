@@ -69,8 +69,15 @@ class CheckContainers(Base):
         query = f'/containers/{container_id}/stats?stream=false'
         async with cls.semaphore:
             logging.debug(f'get stats: {query}')
-            s = await cls.docker_api_call(query)
-            stats[container_id] = s
+            try:
+                stat = await cls.docker_api_call(query)
+            except Exception as e:
+                msg = str(e) or type(e).__name__
+                logging.debug(
+                    f'failed to get stats for container {container_id}; '
+                    f'error: {msg}')
+            else:
+                stats[container_id] = stat
 
     @classmethod
     async def get_data(cls, query: str):
