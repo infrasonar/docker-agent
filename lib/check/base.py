@@ -1,6 +1,7 @@
 import asyncio
 import re
 import aiohttp
+import logging
 from pylibagent.check import CheckBase
 
 
@@ -28,11 +29,16 @@ class Base(CheckBase):
         if cls.interval == 0:
             raise Exception(f'{cls.key} is disabled')
 
-        data = await asyncio.wait_for(
-            cls.get_data(cls.api_call),
-            timeout=60.0  # 60 seconds
-        )
-        state_data = cls.iterate_results(data)
+        try:
+            data = await asyncio.wait_for(
+                cls.get_data(cls.api_call),
+                timeout=60.0  # 60 seconds
+            )
+
+            state_data = cls.iterate_results(data)
+        except Exception:
+            logging.exception('')
+            raise
         return state_data
 
     @classmethod

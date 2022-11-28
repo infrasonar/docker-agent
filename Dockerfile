@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9
 ADD . /code
 WORKDIR /code
 RUN pip install --no-cache-dir -r requirements.txt
