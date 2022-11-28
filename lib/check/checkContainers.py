@@ -70,7 +70,7 @@ class CheckContainers(Base):
         async with cls.semaphore:
             logging.debug(f'get stats: {query}')
             s = await cls.docker_api_call(query)
-            stat[container_id] = s
+            stats[container_id] = s
 
     @classmethod
     async def get_data(cls, query: str):

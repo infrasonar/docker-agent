@@ -22,7 +22,7 @@ class CheckSystem(Base):
             'driver': itm['Driver'],
             # SystemStatus is omitted if the field is not set
             # https://github.com/moby/moby/pull/40340
-            'systemStatus': str(itm.get('SystemStatus', None)),
+            'systemStatus': itm.get('SystemStatus'),
             'memoryLimit': itm['MemoryLimit'],
             'swapLimit': itm['SwapLimit'],
             'kernelMemory': itm['KernelMemory'],
@@ -55,8 +55,8 @@ class CheckSystem(Base):
             'name': itm['Name'],
             'experimentalBuild': itm['ExperimentalBuild'],
             'serverVersion': itm['ServerVersion'],
-            'clusterStore': itm.get('ClusterStore', None),
-            'clusterAdvertise': itm.get('ClusterAdvertise', None),
+            'clusterStore': itm.get('ClusterStore'),
+            'clusterAdvertise': itm.get('ClusterAdvertise'),
             'defaultRuntime': itm['DefaultRuntime'],
             'liveRestoreEnabled': itm['LiveRestoreEnabled'],
             'isolation': itm['Isolation'],
