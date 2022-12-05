@@ -7,9 +7,9 @@ from lib.version import __version__ as version
 
 
 if __name__ == '__main__':
-    # Update ASSET_ID_FILE and set a default for the docker agent
-    asset_id_file = os.getenv('ASSET_ID_FILE', '/data/.asset.json')
-    os.environ['ASSET_ID_FILE'] = asset_id_file
+    # Update ASSET_ID and set a default for the docker agent
+    ASSET_ID = os.getenv('ASSET_ID', '/data/.asset.json')
+    os.environ['ASSET_ID'] = ASSET_ID
 
     checks = [CheckContainers, CheckImages, CheckSystem]
     Agent('docker', version).start(checks, asset_kind='Docker')
