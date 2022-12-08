@@ -32,7 +32,7 @@ class Base(CheckBase):
         try:
             data = await asyncio.wait_for(
                 cls.get_data(cls.api_call),
-                timeout=60.0  # 60 seconds
+                timeout=min(cls.interval*0.8, 60),
             )
 
             state_data = cls.iterate_results(data)
