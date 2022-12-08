@@ -36,6 +36,9 @@ class Base(CheckBase):
             )
 
             state_data = cls.iterate_results(data)
+        except (asyncio.exceptions.CancelledError,
+                asyncio.exceptions.TimeoutError):
+            raise
         except Exception:
             logging.exception('')
             raise
