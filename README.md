@@ -1,5 +1,7 @@
-# InfraSonar Docker agent
+[![CI](https://github.com/infrasonar/docker-agent/workflows/CI/badge.svg)](https://github.com/infrasonar/docker-agent/actions)
+[![Release Version](https://img.shields.io/github/release/infrasonar/docker-agent)](https://github.com/infrasonar/docker-agent/releases)
 
+# InfraSonar Docker agent
 
 ## Environment variables
 
