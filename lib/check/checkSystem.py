@@ -25,8 +25,9 @@ class CheckSystem(Base):
             'systemStatus': itm.get('SystemStatus'),
             'memoryLimit': itm['MemoryLimit'],
             'swapLimit': itm['SwapLimit'],
-            'kernelMemory': itm['KernelMemory'],
-            'kernelMemoryTCP': itm['KernelMemoryTCP'],
+            # kernelMemory and kernelMemoryTCP do exist in newer versions
+            'kernelMemory': itm.get('KernelMemory'),
+            'kernelMemoryTCP': itm.get('KernelMemoryTCP'),
             'cpuCfsPeriod': itm['CpuCfsPeriod'],
             'cpuCfsQuota': itm['CpuCfsQuota'],
             'cpuShares': itm['CPUShares'],
