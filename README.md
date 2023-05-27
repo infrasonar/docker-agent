@@ -3,6 +3,8 @@
 
 # InfraSonar Docker agent
 
+Documentation: https://docs.infrasonar.com/collectors/agents/docker/
+
 ## Environment variables
 
 Environment                 | Default                       | Description
