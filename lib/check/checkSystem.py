@@ -2,6 +2,7 @@ import os
 
 from .base import Base
 from .utils import get_ts_from_time_str
+from ..version import __version__ as version
 
 
 class CheckSystem(Base):
@@ -63,6 +64,7 @@ class CheckSystem(Base):
             'isolation': itm['Isolation'],
             'initBinary': itm['InitBinary'],
             'warnings': itm.get('Warnings') or [],
+            'infrasonarAgentVersion': version,
         }
 
     @classmethod
