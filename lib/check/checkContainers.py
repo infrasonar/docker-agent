@@ -26,6 +26,9 @@ class CheckContainers(Base):
         stats = memory_stats.get('stats')
         if stats is None:
             return None
+        usage = memory_stats.get('usage')
+        if usage is None:
+            return None
 
         # On Linux, the Docker CLI reports memory usage by subtracting cache
         # usage from the total memory usage. The API does not perform such a
@@ -37,12 +40,14 @@ class CheckContainers(Base):
         # of cache field. On cgroup v2 hosts, the cache usage is defined as the
         # value of inactive_file field.
         # https://docs.docker.com/engine/reference/commandline/stats/
-        used_memory = memory_stats['usage'] - stats.get(
+        used_memory = usage - stats.get(
             'cache',
             stats.get(
                 'inactive_file',
                 stats.get('total_inactive_file', 0)))
-        return (used_memory / memory_stats['limit']) * 100.0
+        limit = memory_stats.get('limit')
+        if limit:
+            return (used_memory / limit) * 100.0
 
     @staticmethod
     def calculate_cpu_percentage(stats):
