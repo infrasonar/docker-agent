@@ -26,6 +26,9 @@ class CheckContainers(Base):
         stats = memory_stats.get('stats')
         if stats is None:
             return None
+        
+        # This depends on control groups and can be missing.
+        # https://docs.docker.com/config/containers/runmetrics
         usage = memory_stats.get('usage')
         if usage is None:
             return None
