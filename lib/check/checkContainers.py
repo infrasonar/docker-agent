@@ -22,15 +22,22 @@ class CheckContainers(Base):
     def calculate_memory_percentage(stats):
         memory_stats = stats.get('memory_stats')
         if memory_stats is None:
+            logging.warning('`memory_stats` are missing')
             return None
         stats = memory_stats.get('stats')
         if stats is None:
+            logging.warning('`memory_stats.stats` are missing')
             return None
-        
+
         # This depends on control groups and can be missing.
         # https://docs.docker.com/config/containers/runmetrics
         usage = memory_stats.get('usage')
         if usage is None:
+            logging.warning(
+                '`memory_stats.usage` is missing; depends on '
+                'control groups in linux; see '
+                'https://docs.docker.com/config/containers/runmetrics'
+            )
             return None
 
         # On Linux, the Docker CLI reports memory usage by subtracting cache
@@ -56,15 +63,19 @@ class CheckContainers(Base):
     def calculate_cpu_percentage(stats):
         cpu_stats = stats.get('cpu_stats')
         if cpu_stats is None:
+            logging.warning('`cpu_stats` are missing')
             return None
         cpu_usage = cpu_stats.get('cpu_usage')
         if cpu_usage is None:
+            logging.warning('`cpu_stats.cpu_usage` is missing')
             return None
         precpu_stats = stats.get('precpu_stats')
         if precpu_stats is None:
+            logging.warning('`cpu_stats.precpu_stats` are missing')
             return None
         precpu_usage = precpu_stats.get('cpu_usage')
         if precpu_usage is None:
+            logging.warning('`cpu_stats.precpu_stats.cpu_usage` is missing')
             return None
         system_cpu_usage = cpu_stats.get('system_cpu_usage')
         system_precpu_usage = precpu_stats.get('system_cpu_usage')
@@ -101,7 +112,7 @@ class CheckContainers(Base):
                 stat = await cls.docker_api_call(query)
             except Exception as e:
                 msg = str(e) or type(e).__name__
-                logging.debug(
+                logging.error(
                     f'failed to get stats for container {container_id}; '
                     f'error: {msg}')
             else:
