@@ -19,7 +19,7 @@ class CheckImages(Base):
             'repoDigests': itm.get('RepoDigests') or [],
             'repoTags': itm.get('RepoTags') or [],
             'size': itm['Size'],
-            'virtualSize': itm['VirtualSize'],
+            'virtualSize': itm.get('VirtualSize'),
         }
 
         containers = itm['Containers']
