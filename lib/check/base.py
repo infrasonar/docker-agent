@@ -22,7 +22,7 @@ class Base(CheckBase):
     interval = 300
 
     api_call = ''
-    api_version = 'v1.41'
+    api_version = 'v1.47'
     type_key = None
 
     @classmethod
