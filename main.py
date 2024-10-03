@@ -11,5 +11,12 @@ if __name__ == '__main__':
     ASSET_ID = os.getenv('ASSET_ID', '/data/.asset.json')
     os.environ['ASSET_ID'] = ASSET_ID
 
+    # The ASSET_NAME is ONLY used at announce, after the the asset is created,
+    # the name will be ignored
+    ASSET_NAME = os.getenv('ASSET_NAME')
+
     checks = [CheckContainers, CheckImages, CheckSystem]
-    Agent('docker', version).start(checks, asset_kind='Docker')
+    Agent('docker', version).start(
+        checks,
+        asset_kind='Docker',
+        asset_name=ASSET_NAME)
