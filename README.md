@@ -10,6 +10,7 @@ Documentation: https://docs.infrasonar.com/collectors/agents/docker/
 Environment                 | Default                       | Description
 ----------------------------|-------------------------------|-------------------
 `TOKEN`                     | _required_                    | Token to connect to.
+`ASSET_NAME`                | _none_                        | Initial Asset Name. This will only be used at the announce. Once the asset is created, `ASSET_NAME` will be ignored.
 `ASSET_ID`                  | `/data/.asset.json`           | Asset Id _or_ file where the Agent asset Id is stored _(must be a volume mount)_.
 `API_URI`                   | https://api.infrasonar.com    | InfraSonar API.
 `CHECK_CONTAINERS_INTERVAL` | `300`                         | Interval for the docker containers check in seconds.
@@ -19,5 +20,3 @@ Environment                 | Default                       | Description
 `LOG_LEVEL`                 | `warning`                     | Log level _(error, warning, info, debug)_.
 `LOG_COLORIZED`             | `0`                           | Log colorized, 0 _(=disabled)_ or 1 _(=enabled)_.
 `LOG_FMT`                   | `%y%m...`                     | Default format is `%y%m%d %H:%M:%S`.
-
-
