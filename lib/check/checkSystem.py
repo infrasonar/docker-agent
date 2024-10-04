@@ -1,4 +1,5 @@
 import os
+from typing import Union
 
 from .base import Base
 from .utils import get_ts_from_time_str
@@ -68,6 +69,7 @@ class CheckSystem(Base):
         }
 
     @classmethod
-    def iterate_results(cls, data: dict):
+    def iterate_results(cls, data: Union[dict, list]):
+        assert isinstance(data, dict)
         state = {cls.type_key: [cls.on_item(data)]}
         return state

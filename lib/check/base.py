@@ -2,6 +2,7 @@ import asyncio
 import re
 import aiohttp
 import logging
+from typing import Dict, List, Any, Awaitable, Union
 from pylibagent.check import CheckBase
 
 
@@ -21,11 +22,11 @@ class Base(CheckBase):
     interval = 300
 
     api_call = ''
-    api_version = 'v1.41'
+    api_version = 'v1.47'
     type_key = None
 
     @classmethod
-    async def run(cls):
+    async def run(cls) -> Dict[str, List[Dict[str, Any]]]:
         if cls.interval == 0:
             raise Exception(f'{cls.key} is disabled')
 
@@ -45,7 +46,7 @@ class Base(CheckBase):
         return state_data
 
     @classmethod
-    def get_data(cls, query: str) -> asyncio.Future:
+    def get_data(cls, query: str) -> Awaitable[Union[dict, list]]:
         return cls.docker_api_call(query)
 
     @classmethod
@@ -74,6 +75,7 @@ class Base(CheckBase):
         return [cls.on_item(i) for i in itms]
 
     @classmethod
-    def iterate_results(cls, data: list):
+    def iterate_results(cls, data: Union[dict, list]) -> dict:
+        assert isinstance(data, list)
         itms = cls.on_items(data)
         return {cls.type_key: itms}

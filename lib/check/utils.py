@@ -9,7 +9,9 @@ def get_ts_from_time_str(time_str: str):
     # String format: '2022-04-05T11:30:56.93289351+02:00';
     # remove .93289351 but keep the time-zone
     dstr, tz = time_str.split('.')
-    tz = _TZONE.match(tz).group(1)
+    matched = _TZONE.match(tz)
+    assert matched is not None
+    tz = matched.group(1)
     return int(datetime.strptime(dstr + tz, '%Y-%m-%dT%H:%M:%S%z').timestamp())
 
 

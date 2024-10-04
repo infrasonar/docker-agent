@@ -1,6 +1,7 @@
 import os
 import asyncio
 import logging
+from typing import Union
 
 from .base import Base
 from .utils import format_name
@@ -205,7 +206,8 @@ class CheckContainers(Base):
                 container['cpu'] = cpu
 
     @classmethod
-    def iterate_results(cls, state_data: dict):
+    def iterate_results(cls, data: Union[dict, list]):
         """For the containers check we already have state data at this point.
         """
-        return state_data
+        assert isinstance(data, dict)
+        return data
