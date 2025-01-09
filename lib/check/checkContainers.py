@@ -30,13 +30,13 @@ class CheckContainers(Base):
             logging.warning('`memory_stats.stats` are missing')
             return None
 
-        # This depends on control groups and can be missing.
+        # This depends on control group and can be missing.
         # https://docs.docker.com/config/containers/runmetrics
         usage = memory_stats.get('usage')
         if usage is None:
             logging.warning(
                 '`memory_stats.usage` is missing; depends on '
-                'control groups in linux; see '
+                'control group in linux; see '
                 'https://docs.docker.com/config/containers/runmetrics'
             )
             return None
@@ -52,12 +52,12 @@ class CheckContainers(Base):
         # value of inactive_file field.
         # https://docs.docker.com/engine/reference/commandline/stats/
         used_memory = usage - stats.get(
-            'cache',
+            'cache',  # this differs from docker/cli
             stats.get(
                 'inactive_file',
                 stats.get('total_inactive_file', 0)))
         limit = memory_stats.get('limit')
-        if limit:
+        if limit and used_memory >= 0:
             return (used_memory / limit) * 100.0
 
     @staticmethod
@@ -130,7 +130,8 @@ class CheckContainers(Base):
 
         for container in containers:
             # 2. get stats per container
-            tasks.append(cls.task(container, stats))
+            if container['State'] == 'running':
+                tasks.append(cls.task(container, stats))
 
         await asyncio.gather(*tasks)
         cls.apply_stats(state_data['containers'], stats)
