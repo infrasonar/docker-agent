@@ -130,7 +130,7 @@ class CheckContainers(Base):
 
         for container in containers:
             # 2. get stats per container
-            if container['state'] == 'running':
+            if container['State'] == 'running':
                 tasks.append(cls.task(container, stats))
 
         await asyncio.gather(*tasks)
