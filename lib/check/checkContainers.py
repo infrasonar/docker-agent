@@ -141,7 +141,7 @@ class CheckContainers(Base):
     def format_port(port: dict):
         return (
             f"{port['IP']}:{port['PrivatePort']}"
-            f"->{port['PublicPort']}/{port['Type']}"
+            f"->{port.get('PublicPort', port['PrivatePort'])}/{port['Type']}"
         ) if 'IP' in port else (
             f"{port['PrivatePort']}/{port['Type']}"
         )
