@@ -139,6 +139,8 @@ class CheckContainers(Base):
 
     @staticmethod
     def format_port(port: dict):
+        # Fall-back to PrivatePort if PublicPort is missing; we're not
+        # absolutely sure if this is always correct.
         return (
             f"{port['IP']}:{port['PrivatePort']}"
             f"->{port.get('PublicPort', port['PrivatePort'])}/{port['Type']}"
