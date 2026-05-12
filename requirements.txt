@@ -1,2 +1,2 @@
-aiohttp==3.13.2
+aiohttp==3.13.5
 pylibagent==1.0.2
